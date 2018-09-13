@@ -17,9 +17,11 @@ public class MenuOptions : MonoBehaviour
 
     public void Start ()
     {
-		project = 0;
-		project_name.text = "Project 1/2: EKF and UKF";
-		project_image.sprite = project_1;
+		//project = 0;
+		//project_name.text = "Project 1/2: EKF and UKF";
+		//project_image.sprite = project_1;
+		SceneManager.LoadScene("LakeTrackAutonomous_mpc");
+		//Time.timeScale = 2;
     }
 
 	public void ControlMenu()
@@ -30,7 +32,8 @@ public class MenuOptions : MonoBehaviour
 	public void MainMenu()
 	{
 		Debug.Log ("go to main menu");
-		SceneManager.LoadScene ("MenuScene");
+		//ceneManager.LoadScene ("MenuScene");
+		SceneManager.LoadScene("LakeTrackAutonomous_mpc");
 	}
 
     public void SelectMode()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SocketIO;
 using UnityStandardAssets.Vehicles.Car;
 using System;
+using UnityEngine.SceneManagement;
 
 public class CommandServer_mpc : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class CommandServer_mpc : MonoBehaviour
 	{
 		_socket = GameObject.Find("SocketIO").GetComponent<SocketIOComponent>();
 		_socket.On("open", OnOpen);
+		_socket.On("reset", OnReset);
 		_socket.On("steer", OnSteer);
 		_socket.On("manual", onManual);
 		_carController = CarRemoteControl.GetComponent<CarController>();
@@ -51,6 +53,15 @@ public class CommandServer_mpc : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+	}
+
+	void OnReset(SocketIOEvent obj)
+	{
+		JSONObject jsonObject = obj.data;
+		SceneManager.LoadScene("LakeTrackAutonomous_mpc");
+		var timeScale1 = float.Parse(jsonObject.GetField("timeScale").ToString());
+		Time.timeScale = timeScale1;
+		EmitTelemetry (obj);
 	}
 
 	void OnOpen(SocketIOEvent obj)
